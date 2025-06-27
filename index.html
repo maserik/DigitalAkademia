@@ -1,64 +1,400 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Judul dalam Proses</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      line-height: 1.6;
-      text-align: center;
-    }
-    .container {
-      padding: 30px 15px;
-      max-width: 800px;
-      margin: auto;
-    }
-    h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 18px;
-      margin-bottom: 25px;
-    }
-    .cta-button {
-      display: inline-block;
-      background-color: #25D366;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-size: 18px;
-      margin-top: 30px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    }
-    .cta-button:hover {
-      background-color: #1ebe5d;
-    }
-    marquee {
-      font-size: 16px;
-      margin-top: 40px;
-      color: #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judul dalam Proses</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e7eb; /* gray-200 */
+        }
+
+        /* Custom Animated Background */
+        #main-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+
+        .line {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(45, 212, 191, 0.1); /* teal-400 with opacity */
+            animation: animate-bg 25s linear infinite;
+            bottom: -150px;
+        }
+        
+        .line:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .line:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .line:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .line:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .line:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .line:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .line:nth-child(7){ left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .line:nth-child(8){ left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .line:nth-child(9){ left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+        .line:nth-child(10){ left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+        @keyframes animate-bg {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+
+        h1, h2, h3 {
+            font-weight: 900;
+        }
+        h2 { color: #2dd4bf; /* teal-400 */ }
+        h3 { color: #a5b4fc; /* indigo-300 */ }
+        
+        .prompt-box {
+            background-color: rgba(17, 24, 39, 0.8); /* gray-900 with opacity */
+            border-left: 4px solid #2dd4bf; /* teal-400 */
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+            padding-right: 3.5rem; /* Make space for copy button */
+            border-radius: 0.75rem; /* rounded-lg */
+            overflow-x: auto;
+        }
+        
+        .prompt-box code {
+            white-space: pre-wrap; /* Allows text to wrap */
+            word-break: break-word; /* Breaks long words */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: rgb(55 65 81 / 0.7);
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .copy-btn:hover {
+            background-color: rgb(75 85 99 / 0.7);
+            transform: scale(1.1);
+        }
+        
+        .link-cta {
+            background-color: #2dd4bf; /* teal-400 */
+            color: #083344; /* cyan-950 */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 212, 191, 0.2);
+        }
+        .link-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(45, 212, 191, 0.4);
+        }
+        
+        .link-secondary {
+             background-color: rgba(79, 70, 229, 0.2);
+             border: 1px solid #818cf8;
+             color: #c7d2fe;
+        }
+        .link-secondary:hover {
+            background-color: rgba(79, 70, 229, 0.4);
+            box-shadow: 0 8px 25px rgba(129, 140, 248, 0.2);
+        }
+
+        .toc-link {
+            transition: all 0.2s ease-in-out;
+            color: #9ca3af; /* gray-400 */
+            display: flex;
+            align-items: center;
+        }
+        .toc-link:hover {
+            color: #2dd4bf; /* teal-400 */
+            transform: translateX(5px);
+        }
+        .toc-link .icon {
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .pro-tip {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-left: 4px solid #818cf8; /* indigo-400 */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+        
+        .warning-box {
+            background-color: rgba(239, 68, 68, 0.1); /* red-500 with opacity */
+            border-left: 4px solid #ef4444; /* red-500 */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .chapter-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Judul dalam Proses</h1>
-    <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac risus ac ante imperdiet lacinia. Nulla facilisi. Vivamus ut odio vitae nunc cursus tempor.</strong></p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ligula vel lorem suscipit pulvinar. Sed vitae fermentum elit. Integer tristique imperdiet gravida. Aenean volutpat eget odio a feugiat. In ut vehicula libero, sit amet fermentum enim. Cras nec sapien vitae nulla tincidunt euismod. Nulla eu justo ac lacus convallis suscipit.</p>
-    <p>Sed sed turpis eget felis hendrerit convallis. Donec sagittis augue et purus malesuada, vitae condimentum libero ultrices. Curabitur convallis lectus ac arcu faucibus, ut imperdiet odio rutrum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc congue erat vel leo dapibus, a bibendum ipsum facilisis.</p>
-    <p>Nam at leo vel tortor convallis blandit. Etiam varius vestibulum sapien, at ultrices diam tincidunt at. Nulla facilisi. Duis et nunc magna. Mauris convallis justo eget ipsum facilisis, sed sollicitudin purus gravida. Duis nec mattis justo. Etiam eu eros id sem imperdiet ullamcorper. Sed nec lorem in nulla pretium convallis.</p>
+<body class="antialiased">
 
-    <a class="cta-button" href="https://wa.me/6282111777005" target="_blank">Gabung Sekarang</a>
+    <!-- Animated Background -->
+    <div id="main-bg">
+        <ul class="lines">
+            <li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li><li class="line"></li>
+        </ul>
+    </div>
+    
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <header class="text-center py-12" data-aos="fade-down">
+            <img src="https://placehold.co/800x250/0a0a0a/2dd4bf?text=Visualizing+Ideas+with+AI" 
+                 alt="[Ilustrasi AI yang mengubah teks menjadi gambar]" 
+                 class="w-full h-auto rounded-2xl mb-8 object-cover border-2 border-gray-800 shadow-2xl shadow-teal-500/10">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter text-white">JUDUL MASIH</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mt-2">DALAM PROSES <span class="text-teal-400">PEMBUATAN</span></p>
+            <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Kalimat hook 1 persuasif.</p>
+             <p class="mt-2 text-xs text-gray-500">© Dibuat oleh xxx</p>
+        </header>
 
-    <marquee behavior="scroll" direction="left">⚡️ Ayo jangan tunda lagi! Kesempatan ini hanya untuk yang serius berubah! ⚡️</marquee>
-  </div>
+        <!-- Table of Contents -->
+        <nav class="bg-gray-900/50 backdrop-blur-sm p-6 rounded-2xl mb-12 border border-gray-700" data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-4 text-center">DAFTAR ISI</h2>
+            <ul class="space-y-3">
+                <li><a href="#chapter1" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.05-3.18-.65-.87-2.2-.82-3.15-.05z"/><path d="M12 6.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.05-3.18-.65-.87-2.2-.82-3.15-.05z"/><path d="M21.5 2.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.05-3.18-.65-.87-2.2-.82-3.15-.05z"/></svg>Chapter 1: Lorem Ipsum</a></li>
+                <li><a href="#chapter2" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Chapter 2: Lorem Ipsum</a></li>
+                <li><a href="#chapter3" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2 19 5"/><path d="M12 12h.01"/><path d="M12 6h.01"/><path d="M6.2 6.2 5 5"/><path d="M6.2 11.8 5 13"/><path d="M4 15H2"/><path d="m3 21 8.7-8.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4L9 21"/><path d="M9 15v2"/><path d="M12 19h.01"/></svg>Chapter 3: Lorem Ipsum</a></li>
+                <li><a href="#chapter4" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M15.042 21.672L13.684 16.6m0 0l-2.5-2.5m2.5 2.5l5.504-5.504m-7.504 2.5l-2.5-2.5m2.5 2.5l2.5 2.5m0 0l-2.146 2.146a.5.5 0 0 1-.708 0L9.366 18.5m0 0L6.866 21m0 0L3.366 17.5m0 0L1.22 15.354a.5.5 0 0 1 0-.708l2.146-2.146M3.366 17.5l2.5-2.5m0 0l2.5 2.5m0 0l2.146 2.146a.5.5 0 0 1 .708 0l2.146-2.146m-7.504-2.5l2.5-2.5m-2.5 2.5L1.22 15.354a.5.5 0 0 1 0-.708l2.146-2.146m0 0l2.5 2.5m0 0l2.5-2.5M6.866 9.5l2.5-2.5m-2.5 2.5L3.366 7m0 0L1.22 4.854a.5.5 0 0 1 0-.708L3.366 2m0 0l2.5 2.5m0 0l2.5-2.5m0 0l2.146 2.146a.5.5 0 0 1 .708 0l2.146-2.146m0 0l2.5 2.5m0 0l2.5-2.5m0 0l2.146-2.146a.5.5 0 0 1 .708 0l2.146 2.146m-7.504 2.5l2.5 2.5m0 0l2.5-2.5m0 0L21.134 2m0 0L19 4.134m0 0L16.866 2m0 0l-2.5 2.5m-2.5-2.5L9.366 2"/></svg>Chapter 4: Lorem Ipsum</a></li>
+                <li><a href="#chapter5" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Chapter 5: Lorem Ipsum</a></li>
+                <li><a href="#chapter6" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m16 13 5.223 3.482a.5.5 0 0 1 0 .848L16 20.812V13zM4 12v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8"/><path d="M20 12V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M12 12V4"/></svg>Chapter 6: Lorem Ipsum</a></li>
+                <li><a href="#chapter7" class="toc-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Chapter 7: Lorem Ipsum</a></li>
+            </ul>
+        </nav>
+
+        <!-- Content Chapters -->
+        <main class="space-y-16">
+            
+            <!-- Chapter 1 -->
+            <section id="chapter1" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4 chapter-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.05-3.18-.65-.87-2.2-.82-3.15-.05z"/><path d="M12 6.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.05-3.18-.65-.87-2.2-.82-3.15-.05z"/><path d="M21.5 2.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.05-3.18-.65-.87-2.2-.82-3.15-.05z"/></svg>
+                    Chapter 1: Lorem Ipsum
+                </h2>
+                <div class="space-y-6 text-gray-300 leading-relaxed">
+                    <p>Hook 2: <strong class="text-teal-300">perhatian</strong>. Hook 3. Titik.</p>
+                    <p>Hook 4</p>
+
+                    <h3 class="text-xl font-semibold !mt-8">Judul dalam proses 2</h3>
+                    <p>Lorem Ipsum</p>
+                    <ul class="list-disc list-inside space-y-2 pl-4">
+                        <li><strong>List 1:</strong> Lorem Ipsum</li>
+                        <li><strong>List 2:</strong> Lorem Ipsum</li>
+                        <li><strong>List 3:</strong> Lorem Ipsum</li>
+                        <li><strong>List 4:</strong> Lorem Ipsum</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold !mt-8">Bertanya</h3>
+                    <p>Penjelasan <strong class="text-indigo-300">Hook</strong>. Hook</p>
+                    
+                    <h3 class="text-xl font-semibold !mt-8">Judul disiapkan</h3>
+                    <p>Lorem ipsum <strong class="text-teal-300">Hook</strong> Hook</p>
+                </div>
+            </section>
+
+            <!-- Chapter 2 -->
+            <section id="chapter2" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4 chapter-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Chapter 2: Hook
+                </h2>
+                <div class="space-y-6 text-gray-300 leading-relaxed">
+                    <h3 class="text-xl font-semibold">Lorem Ipsum</h3>
+                    <p class="text-gray-400">Lorem Ipsum</p>
+                    <ol class="list-decimal list-inside space-y-4 mt-4">
+                        <li>Judul Link
+                            <a href="https://google.com/" target="_blank" class="link-cta inline-block font-bold py-2 px-4 rounded-lg mt-1 text-sm">Text Tombol</a>
+                        </li>
+                        <li>List</li>
+                        <li>List <strong class="text-white">Hook</strong>. Hook</li>
+                        <li>List alternatif<strong class="text-teal-300">alternatif</strong>lorem ipsum
+                            <a href="https://google" target="_blank" class="link-secondary inline-block font-bold py-2 px-4 rounded-lg mt-1 text-sm transition-all duration-300">Text Tombol</a>
+                        </li>
+                    </ol>
+                    
+                    <div class="pro-tip mt-8">
+                        <h4 class="font-bold text-lg text-indigo-200">IKLAN</h4>
+                        <p class="mt-2">Hook <strong class="line-through text-red-400">Lorem Ipsum</strong>.Hook</p>
+                        <p class="mt-4 text-center text-4xl font-black text-teal-300">IKLAN</p>
+                        <p class="text-center font-semibold text-white">hook</p>
+                        <ul class="list-disc list-inside mt-4 space-y-2 text-sm">
+                            <li><strong>hook</strong> hook</li>
+                            <li><strong>hook:</strong> hook</li>
+                            <li><strong>hook</strong> Akses <strong class="text-white">hook</strong> + <strong class="text-white">hook</strong> + <strong class="text-white">hook</strong>.</li>
+                        </ul>
+                         <h4 class="font-bold text-lg text-indigo-200 mt-6">hook</h4>
+                        <ol class="list-decimal list-inside space-y-2 mt-2 text-sm">
+                            <li>list</li>
+                            <li>list <strong class="text-white">list</strong>.</li>
+                            <li>list</li>
+                            <li><strong class="text-white">list</strong>, list <strong class="text-white">list</strong>.</li>
+                            <li>hook</li>
+                        </ol>
+                        <div class="text-center mt-4">
+                            <a href="https://google.com" target="_blank" class="link-cta inline-block font-bold py-3 px-8 rounded-lg text-center text-lg">
+                                Text tombol
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="warning-box mt-8">
+                        <h4 class="font-bold text-lg text-red-300 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> DISCLAIMER</h4>
+                        <ul class="list-disc list-inside mt-3 space-y-2 text-sm text-red-200">
+                            <li><strong class="text-white">LIST</strong> LOREM IPSUM</li>
+                            <li>list <strong class="text-white">list</strong>lorem ipsum <strong class="text-white">lorem ipsum</strong> lorem ipsum</li>
+                            <li>Final disclaimer</li>
+                        </ul>
+                    </div>
+                     <p class="!mt-8">Lorem Ipsum <strong class="text-white">USA</strong> atau <strong class="text-white">United Kingdom</strong>. Cek disini:</p>
+                     <div class="text-center">
+                         <a href="https://www.google.com" target="_blank" class="link-secondary inline-block font-bold py-2 px-4 rounded-lg mt-1 text-sm transition-all duration-300">Text Tombol</a>
+                     </div>
+                </div>
+            </section>
+            
+            <!-- Chapter 3 -->
+            <section id="chapter3" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4 chapter-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2 19 5"/><path d="M12 12h.01"/><path d="M12 6h.01"/><path d="M6.2 6.2 5 5"/><path d="M6.2 11.8 5 13"/><path d="M4 15H2"/><path d="m3 21 8.7-8.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4L9 21"/><path d="M9 15v2"/><path d="M12 19h.01"/></svg>
+                    Chapter 3: Lorem Ipsum
+                </h2>
+                <div class="space-y-6 text-gray-300 leading-relaxed">
+                     <p>Hook Judul <strong class="text-teal-300">Hook</strong>.</p>
+                     
+                     <h3 class="text-xl font-semibold !mt-8">Judul</h3>
+                     <p>Lorem ipsum</p>
+                     <img src="https://placehold.co/800x200/111827/a5b4fc?text=TEXT DALAM PLACE HOLDER" alt="[Blueprint SAKGT]" class="w-full h-auto rounded-xl my-6 border border-gray-700">
+                     <ul class="list-disc list-inside space-y-2">
+                         <li><strong>List 1:</strong> lorem ipsum <em class="text-gray-400">Lorem Ipsum</em></li>
+                         <li><strong>List 2:</strong> lorem ipsum <em class="text-gray-400">Lorem Ipsum</em></li>
+                         <li><strong>List 3:</strong> lorem ipsum <em class="text-gray-400">Lorem Ipsum</em></li>
+                         <li><strong>List 4:</strong> lorem ipsum <em class="text-gray-400">Lorem Ipsum</em></li>
+                         
+                     </ul>
+                    
+                    <div class="pro-tip mt-4">
+                        <p class="font-bold text-indigo-300 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3-3-4"/><path d="M12 22a7 7 0 0 1-7-7c0-2 1-3 3-4"/><path d="M15 13a3 3 0 1 1-6 0c0-2 3-5 3-5s3 3 3 5z"/><path d="M10.1 9.1a2 2 0 1 0 3.8 0"/></svg>Contoh dalam kotak</p>
+                        
+                        <p class="mt-2 text-sm text-white font-semibold">Judul 1</p>
+                        <div class="relative mt-1">
+                            
+                            <pre class="prompt-box"><code class="language-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, turpis nec efficitur fermentum, sapien leo laoreet magna, nec porta nunc nulla nec lectus. Cras ultrices, ligula id congue efficitur, tellus nisl sollicitudin sapien, sed consequat ligula risus non mi. Morbi feugiat nisi eget tortor fermentum, at ultricies elit dignissim. Curabitur lacinia magna ut arcu tincidunt, in convallis lectus posuere. Nam tincidunt metus nec ligula tincidunt, sit amet tristique mi iaculis. Integer lobortis tortor a facilisis pharetra. Sed et risus sed velit dignissim finibus</code></pre>
+                        </div>
+                        
+                        <p class="mt-4 text-sm text-white font-semibold">Judul 2</p>
+                        <div class="relative mt-1">
+                            
+                            <pre class="prompt-box"><code class="language-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, turpis nec efficitur fermentum, sapien leo laoreet magna, nec porta nunc nulla nec lectus. Cras ultrices, ligula id congue efficitur, tellus nisl sollicitudin sapien, sed consequat ligula risus non mi. Morbi feugiat nisi eget tortor fermentum, at ultricies elit dignissim. Curabitur lacinia magna ut arcu tincidunt, in convallis lectus posuere. Nam tincidunt metus nec ligula tincidunt, sit amet tristique mi iaculis. Integer lobortis tortor a facilisis pharetra. Sed et risus sed velit dignissim finibus</code></pre>
+                        </div>
+                        
+                        <p class="mt-2 text-sm">Hook <strong class="text-white">lorem ipsum</strong> atau <strong class="text-white">hook</strong>hook</p>
+                    </div>
+
+               
+                    <h3 class="text-xl font-semibold !mt-8">Judul Tabel</h3>
+                    <p>Lorem Ipsum</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-gray-900/50 border border-gray-700 text-sm">
+                            <thead class="bg-gray-800">
+                                <tr>
+                                    <th class="p-3 text-left text-white">Kolom 1</th>
+                                    <th class="p-3 text-left text-white">Kolom 2</th>
+                                    <th class="p-3 text-left text-white">Kolom 3</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                <tr class="hover:bg-gray-800/50">
+                                    <td class="p-3 font-semibold text-teal-300">Row 1</td>
+                                    <td class="p-3 font-mono">Row 1</td>
+                                    <td class="p-3">Row 2</td>
+                                </tr>
+                                <tr class="hover:bg-gray-800/50">
+                                    <td class="p-3 font-semibold text-teal-300">Row 2</td>
+                                    <td class="p-3 font-mono">Row 2</td>
+                                    <td class="p-3">Row 2.</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter 4 -->
+            <section id="chapter4" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4 chapter-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M15.042 21.672L13.684 16.6m0 0l-2.5-2.5m2.5 2.5l5.504-5.504m-7.504 2.5l-2.5-2.5m2.5 2.5l2.5 2.5m0 0l-2.146 2.146a.5.5 0 0 1-.708 0L9.366 18.5m0 0L6.866 21m0 0L3.366 17.5m0 0L1.22 15.354a.5.5 0 0 1 0-.708l2.146-2.146M3.366 17.5l2.5-2.5m0 0l2.5 2.5m0 0l2.146 2.146a.5.5 0 0 1 .708 0l2.146-2.146m-7.504-2.5l2.5-2.5m-2.5 2.5L1.22 15.354a.5.5 0 0 1 0-.708l2.146-2.146m0 0l2.5 2.5m0 0l2.5-2.5M6.866 9.5l2.5-2.5m-2.5 2.5L3.366 7m0 0L1.22 4.854a.5.5 0 0 1 0-.708L3.366 2m0 0l2.5 2.5m0 0l2.5-2.5m0 0l2.146 2.146a.5.5 0 0 1 .708 0l2.146-2.146m0 0l2.5 2.5m0 0l2.5-2.5m0 0l2.146-2.146a.5.5 0 0 1 .708 0l2.146 2.146m-7.504 2.5l2.5 2.5m0 0l2.5-2.5m0 0L21.134 2m0 0L19 4.134m0 0L16.866 2m0 0l-2.5 2.5m-2.5-2.5L9.366 2"/></svg>
+                    Chapter 4: Belum ada Judul
+                </h2>
+                 <div class="space-y-8 text-gray-300 leading-relaxed">
+                     <p>Lorem Ipsum</p>
+                     
+                     
+                     <h3 class="text-xl font-semibold !mt-8">Judul Penutup</h3>
+                     <p>Hook</p>
+                     <div class="bg-teal-900/40 border border-teal-500 text-teal-200 p-6 rounded-lg mt-6">
+                         <h4 class="font-bold text-lg text-white">Last Hook</h4>
+                         <ol class="list-decimal list-inside mt-3 space-y-2">
+                             <li><strong>List 1:</strong> Lorem Ipsum.</li>
+                             <li><strong>List 2:</strong> Lorem Ipsum</li>
+                             <li><strong>List 3:</strong> Lorem Ipsum</li>
+                         </ol>
+                          <p class="mt-4 font-bold">Hook</p>
+                     </div>
+                 </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center py-10 mt-16 border-t border-gray-800">
+            <p class="text-gray-400">Footer</p>
+            <p class="text-xs text-gray-600 mt-2">© credit</p>
+        </footer>
+
+    </div>
+
+    
+    <!-- AOS (Animate On Scroll) Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 700,
+            once: true,
+            offset: 50,
+        });
+    </script>
 </body>
 </html>
